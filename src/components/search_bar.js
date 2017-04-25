@@ -15,8 +15,21 @@ import React, { Component } from 'react';
  * A stateful class based component.
  */
 class SearchBar extends Component {
+  constructor( props ) {
+    super( props );
+
+    this.state = { term: 'Initial value' };
+  }
+
   render() {
-    return <input/>;
+    return (
+      <div>
+        <input
+          value={this.state.term}
+          onChange={e => this.setState( { term: e.target.value } )}/>
+        <p>The search term '{this.state.term}'</p>
+      </div>
+    );
   }
 }
 
