@@ -1,8 +1,7 @@
 import React from 'react';
 
 const VideoDetail = ( { video } ) => {
-  if( typeof (video) === 'undefined')
-  {
+  if ( !video ) {
     return <div>Loading....</div>;
   }
   const videoId = video.id.videoId;
@@ -10,7 +9,7 @@ const VideoDetail = ( { video } ) => {
   return (
     <div className="video-detail col-md8">
       <div className="embed-responsive embed-responsive-16by9">
-        <iframe className="embed-responsive-item" src={url} />
+        <iframe className="embed-responsive-item" src={url}/>
       </div>
       <div className="details">
         <div>{video.snippet.title}</div>
