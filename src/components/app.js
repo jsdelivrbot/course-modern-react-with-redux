@@ -11,10 +11,11 @@ export default class App extends Component {
     super( props );
 
     this.state = {
+      term: 'musictheory',
       videos: [],
       currentVideo: null
     };
-    this.youtubeSearch( 'musictheory' );
+    this.youtubeSearch( this.state.term );
   }
 
   youtubeSearch( term ) {
@@ -22,10 +23,15 @@ export default class App extends Component {
               videos => this.setState( { videos: videos, currentVideo: videos[ 0 ] } ) );
   }
 
+  onSearchChanged( term ) {
+    this.setState( { term: term } );
+    this.youtubeSearch( this.state.term );
+  }
+
   render() {
     return (
       <div>
-        <SearchBar/>
+        <SearchBar term={this.state.searchterm} onSearchChanged={t => this.onSearchChanged( t )}/>
         <VideoDetail video={this.state.currentVideo}/>
         <VideoList videos={this.state.videos} onSelectVideo={v => this.setState( { currentVideo: v } )}/>
       </div>
