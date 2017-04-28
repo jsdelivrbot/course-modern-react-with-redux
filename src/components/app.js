@@ -11,7 +11,12 @@ export default class App extends Component {
     super( props );
 
     this.state = { videos: [] };
-    YTSearch( { key: YOUTUBE_API_KEY, term: 'musictheory' }, videos => this.setState( { videos } ) );
+    this.youtubeSearch( 'musictheory' );
+  }
+
+  youtubeSearch( term ) {
+    YTSearch( { key: YOUTUBE_API_KEY, term: term },
+              videos => this.setState( { videos: videos, currentVideo: videos[ 0 ] } ) );
   }
 
   render() {
