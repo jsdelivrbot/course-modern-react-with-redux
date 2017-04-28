@@ -7,12 +7,16 @@ class SearchBar extends Component {
     this.state = { term: 'musictheory' };
   }
 
+  onInputChange( term ) {
+    this.setState( { term: term } );
+  }
+
   render() {
     return (
       <div>
         <input
           value={this.state.term}
-          onChange={e => this.setState( { term: e.target.value } )}/>
+          onChange={e => this.onInputChange( e.target.value )}/>
       </div>
     );
   }
