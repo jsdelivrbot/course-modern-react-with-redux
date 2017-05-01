@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWeather } from '../actions/index';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor( props ) {
     super( props );
     this.state = { term: '' };
@@ -28,9 +31,21 @@ export default class SearchBar extends Component {
 
   onFormSubmit( event ) {
     event.preventDefault();
+    this.props.fetchWeather( this.state.term );
+    this.setState( { term: '' } );
   }
 
   onInputChange( event ) {
     this.setState( { term: event.target.value } );
   }
 }
+
+// Whatever is returned will show up as props on the SearchBar container
+// i.e. this.props.fetchWeather will be available in the SearchBar
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators( { fetchWeather: fetchWeather }, dispatch );
+}
+
+// Promote SearchBar from a component to a container. It provides state from redux as props
+// and actions from redux as props.
+export default connect( null, mapDispatchToProps )( SearchBar );
