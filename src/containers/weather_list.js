@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import SimpleChart from '../components/simple_chart';
 
 class WeatherList extends Component {
   render() {
     return (
-      <table className="table table-hover">
+      <table className="table table-bordered table-hover">
         <thead>
         <tr>
           <th>City</th>
@@ -21,9 +22,15 @@ class WeatherList extends Component {
   }
 
   renderWeather( city_weather ) {
+    const temperature = city_weather.list.map( data => data.main.temp );
+    const pressure = city_weather.list.map( data => data.main.pressure );
+    const humidity = city_weather.list.map( data => data.main.humidity );
     return (
       <tr key={city_weather.city.id}>
         <td>{city_weather.city.name}</td>
+        <td><SimpleChart data={temperature} color="blue"/></td>
+        <td><SimpleChart data={pressure} color="red"/></td>
+        <td><SimpleChart data={humidity} color="orange"/></td>
       </tr>
     );
   }
