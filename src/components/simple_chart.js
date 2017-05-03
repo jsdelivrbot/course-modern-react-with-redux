@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Sparklines, SparklinesReferenceLine, SparklinesLine } from 'react-sparklines';
+import _ from 'lodash';
+import React from 'react';
+import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 
 /*
 export default class SimpleChart extends Component {
@@ -13,12 +14,19 @@ export default class SimpleChart extends Component {
 }
 */
 
+function average( data ) {
+  return _.round( _.sum( data ) / data.length );
+}
+
 //Simpler functional variant
 export default function ( props ) {
   return (
-    <Sparklines svgHeight={120} svgWidth={180} data={props.data}>
-      <SparklinesLine color={props.color}/>
-      <SparklinesReferenceLine type="avg" />
-    </Sparklines>
+    <div>
+      <Sparklines svgHeight={120} svgWidth={180} data={props.data}>
+        <SparklinesLine color={props.color}/>
+        <SparklinesReferenceLine type="avg"/>
+      </Sparklines>
+      <div>{average( props.data )}{props.units}</div>
+    </div>
   );
 }
