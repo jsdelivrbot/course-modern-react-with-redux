@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GoogleMap from '../components/google_map';
 import SimpleChart from '../components/simple_chart';
 
 class WeatherList extends Component {
@@ -25,9 +26,15 @@ class WeatherList extends Component {
     const temperature = city_weather.list.map( data => data.main.temp );
     const pressure = city_weather.list.map( data => data.main.pressure );
     const humidity = city_weather.list.map( data => data.main.humidity );
+
+    // Simplify destructuring from ES6
+    const { lon, lat } = city_weather.city.coord;
     return (
       <tr key={city_weather.city.id}>
-        <td>{city_weather.city.name}</td>
+        <td>
+          <h5>{city_weather.city.name}</h5>
+          <GoogleMap lon={lon} lat={lat}/>
+        </td>
         <td><SimpleChart data={temperature} color="blue" units="K"/></td>
         <td><SimpleChart data={pressure} color="red" units="hPa"/></td>
         <td><SimpleChart data={humidity} color="orange" units="%"/></td>
