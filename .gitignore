@@ -3,5 +3,5 @@ bundle.js
 npm-debug.log
 /tmp
 *.iml
-/.iws
-/.ipr
+/*.iws
+/*.ipr
