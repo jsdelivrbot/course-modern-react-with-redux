@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/index';
+import { fetchPosts } from '../../actions/index';
 
-class PostsList extends Component {
+class ListPosts extends Component {
 
   componentDidMount() {
     this.props.fetchPosts();
@@ -41,4 +41,4 @@ function mapStateToProps( { posts } ) {
 
 // Remember {fetchPosts} is equivalent to {fetchPosts:fetchPosts}
 // and perfect fine to pass in object rather than function that resolves to object
-export default connect( mapStateToProps, { fetchPosts } )( PostsList );
+export default connect( mapStateToProps, { fetchPosts } )( ListPosts );
