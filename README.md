@@ -6,3 +6,7 @@ A blog project used to experiment with redux+reactjs+react-router based on the c
 
     $ npm install
     $ npm start
+
+### Backend Service
+
+The backend service is described at [http://reduxblog.herokuapp.com/](http://reduxblog.herokuapp.com/)
