@@ -5,13 +5,21 @@ import { Field, reduxForm } from 'redux-form';
 // no code to render a component
 
 class CreatePost extends Component {
+  onSubmit( values ) {
+    console.log( values );
+  }
+
   render() {
+    // handleSubmit is passed in from reduxForm and will call the function it is passed
+    // when all the validation passes
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit( this.onSubmit.bind( this ) )}>
         <h1>Create Post</h1>
         <Field name="title" label="Title" component={this.renderField}/>
         <Field name="categories" label="Categories" component={this.renderField}/>
         <Field name="content" label="content" component={this.renderField}/>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
@@ -47,7 +55,7 @@ function validate( values ) {
   if ( !values.title ) {
     errors.title = 'Enter a title';
   }
-  if ( values.title  && values.title.length < 3 ) {
+  if ( values.title && values.title.length < 3 ) {
     errors.title = 'Title should be at least 3 characters';
   }
   if ( !values.categories ) {
@@ -56,7 +64,6 @@ function validate( values ) {
   if ( !values.content ) {
     errors.content = 'No content present';
   }
-
 
   //If errors is empty then the form is fine to submit otherwise there is
   // an error and redux-form assumes form is invalid
