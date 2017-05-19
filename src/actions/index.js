@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_POST = 'FETCH_POST';
 export const SAVE_POST = 'SAVE_POST';
 
 const BASE_URL = 'http://reduxblog.herokuapp.com/api/';
@@ -15,6 +16,15 @@ export function fetchPosts() {
   const request = axios.get( toQueryUrl( '/posts' ) );
   return {
     type: FETCH_POSTS,
+    payload: request
+  };
+}
+
+export function fetchPost(postID) {
+  //Request is a promise that is processed by ReduxPromise middleware
+  const request = axios.get( toQueryUrl( `/posts/${postID}` ) );
+  return {
+    type: FETCH_POST,
     payload: request
   };
 }
