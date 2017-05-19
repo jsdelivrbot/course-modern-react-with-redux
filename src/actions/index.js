@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
+export const SAVE_POST = 'SAVE_POST';
 
 const BASE_URL = 'http://reduxblog.herokuapp.com/api/';
 const API_KEY = 'realityforge-42';
@@ -14,6 +15,16 @@ export function fetchPosts() {
   const request = axios.get( toQueryUrl( '/posts' ) );
   return {
     type: FETCH_POSTS,
+    payload: request
+  };
+}
+
+export function savePost( title, categories, content, callback ) {
+  const request =
+    axios.post( toQueryUrl( '/posts' ), { title: title, categories: categories, content: content } ).
+          then( () => callback() );
+  return {
+    type: SAVE_POST,
     payload: request
   };
 }

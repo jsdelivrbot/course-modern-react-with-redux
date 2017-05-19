@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { savePost } from '../../actions/index';
 
 // Field is another high-order-like component. It does all the logic but has
 // no code to render a component
 
 class CreatePost extends Component {
   onSubmit( values ) {
-    console.log( values );
+
+    // As CreatePost was passed to <Route />, the router components have added a bunch
+    // of props to interact with router. The next line is an example of one
+    //this.props.history.push( '/' );
+
+    this.props.savePost( values.title, values.categories, values.content, () => this.props.history.push( '/' ) );
   }
 
   render() {
@@ -20,6 +28,7 @@ class CreatePost extends Component {
         <Field name="categories" label="Categories" component={this.renderField}/>
         <Field name="content" label="content" component={this.renderField}/>
         <button type="submit" className="btn btn-primary">Submit</button>
+        <Link className="btn btn-danger" to="/">Cancel</Link>
       </form>
     );
   }
@@ -35,15 +44,19 @@ class CreatePost extends Component {
   // the errors are those collected from validate. The assumption is that the field name and name in errors
   // object must be identical for errors to be passed in as field.meta.error
   renderField( field ) {
+    const { meta: { touched, error } } = field;
+    // Rather than using field.meta.touched we can use touched
+    // Rather than using field.meta.error we can use error
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
           type="text"
           {...field.input}
         />
-        {field.meta.error}
+        <div className="text-help">{touched ? error : ''}</div>
       </div>
     );
   }
@@ -74,4 +87,4 @@ function validate( values ) {
 // The strings have to be unique unless you want data from multiple forms to be merged.
 
 //NOTE: { validate, form: 'CreatePostForm' } === { validate: validate, form: 'CreatePostForm' }
-export default reduxForm( { validate, form: 'CreatePostForm' } )( CreatePost );
+export default reduxForm( { validate, form: 'CreatePostForm' } )( connect( null, { savePost } )( CreatePost ) );
