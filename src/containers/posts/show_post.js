@@ -13,7 +13,7 @@ class ShowPost extends Component {
 
   render() {
     return (
-      <h1>Hi</h1>
+      <h1>Post: { this.props.post.title }</h1>
     );
   }
 }
