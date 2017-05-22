@@ -12,11 +12,15 @@ class ShowPost extends Component {
   }
 
   render() {
+    const post = this.props.post;
+    if ( !post ) {
+      return <di>Loading....</di>;
+    }
     return (
       <div>
-        <h3>{ this.props.post.title }</h3>
-        <h6>Categories: { this.props.post.categories }</h6>
-        <p>{ this.props.post.content }</p>
+        <h3>{ post.title }</h3>
+        <h6>Categories: { post.categories }</h6>
+        <p>{ post.content }</p>
       </div>
     );
   }
