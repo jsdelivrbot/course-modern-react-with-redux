@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { fetchPost } from '../../actions/index';
 
 class ShowPost extends Component {
@@ -17,4 +18,12 @@ class ShowPost extends Component {
   }
 }
 
-export default connect( null, { fetchPost } )( ShowPost );
+/**
+ * ownProps is the props that is being supplied to the component, ownProps === this.props inside the component
+ */
+function mapStateToProps( { posts }, ownProps ) {
+  const postID = ownProps.match.params.id;
+  return { post: posts[ postID ] };
+}
+
+export default connect( mapStateToProps, { fetchPost } )( ShowPost );
