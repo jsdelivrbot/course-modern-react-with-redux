@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POST, FETCH_POSTS } from '../actions/index';
+import { DELETE_POST, FETCH_POST, FETCH_POSTS } from '../actions/index';
 
 export default function ( state = {}, action ) {
   switch ( action.type ) {
@@ -15,6 +15,12 @@ export default function ( state = {}, action ) {
       else {
         return state;
       }
+    case DELETE_POST:
+      const postID = action.payload;
+      // If the state has a key that matches postID then return object
+      // omitting that key
+      return _.omit( state, postID );
+
     case FETCH_POSTS:
       const posts = action.payload.data;
       return _.mapKeys( posts, 'id' );
